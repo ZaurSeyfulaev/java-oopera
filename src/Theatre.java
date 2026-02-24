@@ -34,7 +34,7 @@ public class Theatre {
         opera.printListOfActors();
         ballet.printListOfActors();
 
-        show.updateActors("Боярский", konstantinKhabensky);
+        ballet.updateActors("Боярский", konstantinKhabensky);
         ballet.printListOfActors();
         opera.updateActors("Безруков", annaDyukova);
     }
