@@ -35,15 +35,49 @@ public class Show {
         System.out.println("================");
     }
 
+    // Добавлена проверка на того, что новый актер еще не участвует в постановке
     public void updateActors(String oldActorSurname, Actor newActor) {
+        //Если фамилия уникальна для списка акторов
+        if (hasNamesakes(oldActorSurname)) {
+          //  Пперебираем список
+            for (Actor actor : listOfActors) {
+                //Если совпадение найдено то
+                if (actor.getSurname().equals(oldActorSurname)) {
+                    //Проверяем не участвует ли этот актер в постановке
+                    if (!actor.equals(newActor)) {
+                        listOfActors.set(listOfActors.indexOf(actor), newActor);
+                        System.out.println("Актер по фамилии: " + actor.getSurname() + " заменен на актера по фамилии: "
+                                + newActor.getSurname());
+                        return;
+                    }
+                }
+            }
+            System.out.println("Актер с фамилией "+ newActor.getSurname() + "уже участвует в постановке "
+                    + title);
+        }
+    }
+
+    /**
+     * Не нашел ничего умней как искать количество совпадений в отдельном методе
+     *
+     * @param surname Фамилия актера
+     * @return true только если актер найден по фамилии и он такой один
+     */
+    private boolean hasNamesakes(String surname) {
+        int findSurnameCount = 0;
         for (Actor actor : listOfActors) {
-            if (actor.getSurname().equals(oldActorSurname)) {
-                listOfActors.set(listOfActors.indexOf(actor), newActor);
-                System.out.println("Актер по фамилии: " + actor.getSurname() + " заменен на актера по фамилии: "
-                        + newActor.getSurname());
-                return;
+            if (actor.getSurname().equals(surname)) {
+                findSurnameCount++;
             }
         }
-        System.out.println("Указанный актер: " + oldActorSurname + " не участвует в постановке " + title);
+        if (findSurnameCount == 1) {
+            return true;
+        } else if (findSurnameCount > 1) {
+            System.out.println("Не могу заменить актера, так как найдено более одного актера с фамилией " + surname);
+            return false;
+        } else {
+            System.out.println("Указанный актер: " + surname + " не участвует в постановке " + title);
+            return false;
+        }
     }
 }

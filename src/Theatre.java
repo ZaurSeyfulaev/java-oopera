@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Theatre {
 
     public static void main(String[] args) {
@@ -36,7 +34,7 @@ public class Theatre {
         opera.printListOfActors();
         ballet.printListOfActors();
 
-        ballet.updateActors("Боярский", konstantinKhabensky);
+        show.updateActors("Боярский", konstantinKhabensky);
         ballet.printListOfActors();
         opera.updateActors("Безруков", annaDyukova);
     }
